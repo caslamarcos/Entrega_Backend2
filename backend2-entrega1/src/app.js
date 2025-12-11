@@ -7,29 +7,27 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import sessionsRouter from './routes/sessions.router.js';
 import usersRouter from './routes/users.router.js';
+import { PORT, MONGO_URL, DB_NAME } from './config/config.js';
 
 const app = express();
-const PORT = 8080;
 
-// 🧩 Middlewares base
+// Middlewares base
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
-// 🔐 Passport
+// Passport
 initializePassport();
 app.use(passport.initialize());
 
-// 📦 Rutas
+// Rutas
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/users', usersRouter);
 
-// 🚀 Conexión a Mongo y arranque del server
-const MONGO_URL = 'mongodb://localhost:27017/backend2_entrega1';
-
+// Conexión a Mongo y arranque del server
 mongoose
-  .connect(MONGO_URL)
+  .connect(MONGO_URL, { dbName: DB_NAME })
   .then(() => {
     console.log('✅ Conectado a MongoDB');
     app.listen(PORT, () => console.log(`✅ Servidor escuchando en puerto ${PORT}`));

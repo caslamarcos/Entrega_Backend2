@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-export const JWT_SECRET = 'coderBackendIISecret'; // si querés después lo pasás a .env
+import { JWT_SECRET } from './config/config.js';
 
 // Encriptar contraseña
 export const createHash = (password) =>
@@ -32,3 +31,6 @@ export const cookieExtractor = (req) => {
   }
   return token;
 };
+
+// Reexporto para passport.config.js
+export { JWT_SECRET };
