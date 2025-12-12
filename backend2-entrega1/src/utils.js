@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from './config/config.js';
+import { config } from './config/config.js';
+
+const { secret, expiresIn, cookieName } = config.jwt;
 
 // Encriptar contraseña
 export const createHash = (password) =>
@@ -20,17 +22,17 @@ export const generateToken = (user) => {
     role: user.role
   };
 
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign(payload, secret, { expiresIn });
 };
 
 // Extraer token desde cookie
 export const cookieExtractor = (req) => {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies['jwtCookieToken'];
+    token = req.cookies[cookieName];
   }
   return token;
 };
 
-// Reexporto para passport.config.js
-export { JWT_SECRET };
+export const JWT_SECRET = secret;
+export const JWT_COOKIE_NAME = cookieName;

@@ -26,7 +26,7 @@ const initializePassport = () => {
     )
   );
 
-  // Estrategia "current" que pide la consigna
+  // Estrategia current
   passport.use(
     'current',
     new JwtStrategy(

@@ -1,18 +1,24 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 
-dotenv.config();
+export const config = {
+  app: {
+    port: process.env.PORT || 8080,
+    baseUrl: process.env.BASE_URL || 'http://localhost:8080'
+  },
 
-export const PORT = process.env.PORT || 8080;
+  db: {
+    url: process.env.MONGO_URL || 'mongodb://localhost:27017',
+    name: process.env.DB_NAME || 'backend2_entrega_final'
+  },
 
-export const MONGO_URL = process.env.MONGO_URL;
-export const DB_NAME = process.env.DB_NAME || 'backend2_entrega1';
+  jwt: {
+    secret: process.env.JWT_SECRET || 'coderBackendIISecret',
+    cookieName: process.env.COOKIE_NAME || 'jwtCookieToken',
+    expiresIn: '24h'
+  },
 
-export const JWT_SECRET = process.env.JWT_SECRET || 'coderBackendIISecret';
-export const COOKIE_SECRET = process.env.COOKIE_SECRET || 'cookieSecretBackendII';
-
-export const PERSISTENCE = process.env.PERSISTENCE || 'MONGO';
-
-export const GMAIL_USER = process.env.GMAIL_USER || '';
-export const GMAIL_PASS = process.env.GMAIL_PASS || '';
-
-export const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
+  mail: {
+    user: process.env.MAIL_USER || '',
+    pass: process.env.MAIL_PASS || ''
+  }
+};
